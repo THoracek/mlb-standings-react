@@ -1,0 +1,10 @@
+.team-name {
+  background-color: #eaeaea;
+  font-weight: 700;
+  width: 20%;
+}
+
+.team-wins,
+.team-losses {
+  width: 40%;
+}

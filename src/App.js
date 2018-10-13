@@ -1,25 +1,42 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import DivisionContainer from "./DivisionContainer";
+import RecordsService from "./recordsService";
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      standings: []
+    }
+  }
+
+  async componentDidMount() {
+    const standings = await new RecordsService().getStandings();
+
+    this.setState({
+      standings
+    });
+  }
+
   render() {
+    const {standings} = this.state;
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+
+        <div className="container">
+          <h1>Standings</h1>
+
+          <h3>Regular Season</h3>
+          {
+            standings.map(league => {
+              return league.divisions.map(teams => {
+                return <DivisionContainer league={league.league} division={teams.division} teams={teams}/>
+              });
+            })
+          }
+        </div>
       </div>
     );
   }

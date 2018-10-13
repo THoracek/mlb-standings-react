@@ -1,0 +1,30 @@
+.division {
+  width: 100%;
+}
+
+.division:last-child {
+  margin-bottom: 40px;
+}
+
+.division-table-header {
+  background-color: #33006F;
+  color: #fff;
+}
+
+.division-table-body tr {
+  border-bottom: 1px solid #cccccc;
+}
+
+.division-table-body tr:last-child {
+  border-bottom: none;
+}
+
+.division-table-header th,
+.division-table-body td {
+  padding: 10px 20px;
+}
+
+.more-information {
+  cursor: default;
+  border-bottom: dotted 1px white;
+}
