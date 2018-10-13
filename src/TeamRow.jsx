@@ -5,7 +5,7 @@ import styles from "./TeamRow.module.css";
 function TeamRow(props) {
   if (!props.team) return null;
 
-  const {team: {wins, losses, team: name}} = props;
+  const { team: { wins, losses, team: name } } = props;
 
   if (!wins || !losses || !name) {
     return null;

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import DivisionContainer from "./DivisionContainer";
+import DivisionTable from "./DivisionTable";
 import RecordsService from "./recordsService";
 
 class App extends Component {
@@ -20,23 +20,24 @@ class App extends Component {
   }
 
   render() {
-    const {standings} = this.state;
+    const { standings } = this.state;
 
     return (
-      <div className="App">
+      <div className="container">
+        <h1>Standings</h1>
 
-        <div className="container">
-          <h1>Standings</h1>
+        <h3>Regular Season</h3>
+        {
+          standings.map(leagues => {
+            const { divisions, league } = leagues;
 
-          <h3>Regular Season</h3>
-          {
-            standings.map(league => {
-              return league.divisions.map(teams => {
-                return <DivisionContainer league={league.league} division={teams.division} teams={teams}/>
-              });
-            })
-          }
-        </div>
+            return divisions.map(teams => {
+              const { division } = teams;
+
+              return <DivisionTable key={division} league={league} division={division} teams={teams}/>
+            });
+          })
+        }
       </div>
     );
   }

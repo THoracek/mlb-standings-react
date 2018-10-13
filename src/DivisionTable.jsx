@@ -1,10 +1,10 @@
 import React from 'react';
 
-import styles from "./DivisionContainer.module.css";
+import styles from "./DivisionTable.module.css";
 import TeamRow from "./TeamRow";
 
-function DivisionContainer(props) {
-  const {division, league, teams} = props;
+function DivisionTable(props) {
+  const { division, league, teams } = props;
 
   if (!division || !league || !teams) {
     return null;
@@ -30,4 +30,4 @@ function DivisionContainer(props) {
   );
 }
 
-export default DivisionContainer;
+export default DivisionTable;
