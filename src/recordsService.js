@@ -1,5 +1,6 @@
 import groupBy from 'lodash.groupby';
 import sortBy from 'lodash.sortby';
+import omit from 'lodash.omit';
 
 const endpoint = 'https://api.mobileqa.mlbinfra.com';
 
@@ -15,26 +16,17 @@ class RecordsService {
 
     const recordsGroupedByLeague = RecordsService.groupRecordsByLeague(records);
 
-    const recordsGroupedByDivision = Object.values(recordsGroupedByLeague).map((leagueRecords, i) => {
-      return {
-        league: Object.keys(recordsGroupedByLeague)[i],
-        divisions: RecordsService.groupRecordsByDivision(leagueRecords)
-      }
-    });
-
-    return recordsGroupedByDivision.map((league, i) => {
-      const { divisions } = league;
-
-      const sortedDivisions = Object.values(divisions).map((teams, j) => {
-        return {
-          division: Object.keys(divisions)[j],
-          teams: RecordsService.sortTeamsByWins(teams)
-        }
-      });
+    return Object.values(recordsGroupedByLeague).map((leagueRecords, i) => {
+      const recordsGroupedByDivision = RecordsService.groupRecordsByDivision(leagueRecords);
 
       return {
         league: Object.keys(recordsGroupedByLeague)[i],
-        divisions: sortedDivisions
+        divisions: Object.values(recordsGroupedByDivision).map((teams, j) => {
+          return {
+            division: Object.keys(recordsGroupedByDivision)[j],
+            teams: RecordsService.sortTeamsByWins(teams.map(team => omit(team, ['division', 'league'])))
+          }
+        })
       }
     });
   };
