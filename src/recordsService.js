@@ -39,7 +39,9 @@ class RecordsService {
    */
   fetchRecords = async () => {
     try {
-      const response = await fetch(`${endpoint}/api/interview/v1/records`);
+      const response = await fetch(`${endpoint}/api/interview/v1/records`, {
+        mode: 'cors'
+      });
       return await response.json();
     } catch (e) {
       console.log(e);
